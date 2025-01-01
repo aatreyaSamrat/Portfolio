@@ -3,15 +3,25 @@ import { motion } from "framer-motion";
 import { images } from "../../constants";
 import "./Header.scss";
 
+const ScaleVariants = {
+  whileInView: {
+    scale: [0, 1],
+    opacity: [0, 1],
+    transition: {
+      duration: 1,
+      ease: "easeInOut",
+    },
+  },
+};
 const Header = () => {
   return (
-    <div className="app__header app__flex">
+    <div id="home" className="app__header app__flex">
       <motion.div
-        whileINView={{ x: [-100, 0], opacity: [0, 1] }}
+        whileInView={{ x: [-100, 0], opacity: [0, 1] }}
         transition={{ duration: 0.5 }}
-        className="app_header-info"
+        className="app__header-info"
       >
-        <div className="app_header-badge">
+        <div className="app__header-badge">
           <div className="badge-cmp app__flex">
             <span>👋</span>
             <div style={{ marginLeft: 20 }}>
@@ -19,7 +29,37 @@ const Header = () => {
               <h1 className="head-text">Samrat</h1>
             </div>
           </div>
+          <div className="tag-cmp app__flex">
+            <p className="p-text">Full-Stack Developer </p>
+
+            <p className="p-text">Freelancer</p>
+          </div>
         </div>
+      </motion.div>
+      <motion.div
+        whileInView={{ opacity: [0, 1] }}
+        transition={{ duration: 0.5, delayChlidren: 0.5 }}
+        className="app__header-img"
+      >
+        <img src={images.profile} alt="profilee_bg" />
+        <motion.img
+          whileInView={{ scale: [0, 1] }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          src={images.circle}
+          alt="profile_circle"
+          className="overlay_circle"
+        />
+      </motion.div>
+      <motion.div
+        variant={ScaleVariants}
+        whileInView={ScaleVariants.whileInView}
+        className="app__header-circles"
+      >
+        {[images.flutter, images.redux, images.sass].map((circle, index) => (
+          <div className="circle-cmp app_flex" key={`circle-${index}`}>
+            <img src={circle} alt="circle" />
+          </div>
+        ))}
       </motion.div>
     </div>
   );
